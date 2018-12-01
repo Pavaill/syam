@@ -51,7 +51,4 @@ public class MemberListProducer {
     public void retrieveAllMembersOrderedById() {
         members = memberRepository.findAllOrderedById();
     }
-    public void retrieveAllMembersOrderedById() {
-        members = memberRepository.findAllOrderedByID();
-    }
 }

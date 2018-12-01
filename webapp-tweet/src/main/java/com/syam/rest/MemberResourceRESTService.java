@@ -25,6 +25,8 @@ import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -117,6 +119,20 @@ public class MemberResourceRESTService {
         }
 
         return builder.build();
+    }
+
+    @POST
+    @Path("/tweet/{login}/{text}")
+    @Produces("application/json")
+    public Response getTweetJSON(@PathParam("login") String login, @PathParam("text") String text) {
+        System.out.println("login: " + login);
+
+        JsonObject jsonFile = Json.createObjectBuilder()
+                .add("login", login)
+                .add("text", text)
+                .build();
+
+        return Response.ok(jsonFile).build();
     }
 
     /**
