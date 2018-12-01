@@ -44,11 +44,11 @@ public class MemberListProducer {
     }
 
     public void onMemberListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final Member member) {
-        retrieveAllMembersOrderedByName();
+        retrieveAllMembersOrderedById();
     }
 
     @PostConstruct
-    public void retrieveAllMembersOrderedByName() {
-        members = memberRepository.findAllOrderedByName();
+    public void retrieveAllMembersOrderedById() {
+        members = memberRepository.findAllOrderedById();
     }
 }

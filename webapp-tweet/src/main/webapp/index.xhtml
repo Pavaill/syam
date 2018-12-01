@@ -21,32 +21,24 @@
     xmlns:h="http://java.sun.com/jsf/html"
     template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
-        <h1>Welcome to WildFly!</h1>
+        <h1>Welcome to Tweeter!</h1>
 
         <div>
-            <p>You have successfully deployed a Java EE 7 Enterprise
-                Application.</p>
-            <h3>Your application can run on:</h3>
-            <img src="resources/gfx/wildfly_400x130.jpg" />
+            <h3>(Mettre un logo ?)</h3>
+            <img src="" />
         </div>
 
         <h:form id="reg">
-            <h2>Member Registration</h2>
-            <p>Enforces annotation-based constraints defined on the
-                model class.</p>
+            <h2>Tweet post</h2>
             <h:panelGrid columns="3" columnClasses="titleCell">
                 <h:outputLabel for="name" value="Name:" />
                 <h:inputText id="name" value="#{newMember.name}" />
                 <h:message for="name" errorClass="invalid" />
 
-                <h:outputLabel for="email" value="Email:" />
-                <h:inputText id="email" value="#{newMember.email}" />
-                <h:message for="email" errorClass="invalid" />
+                <h:outputLabel for="tweetText" value="Text:" />
+                <h:inputText id="tweetText" value="#{newMember.tweetText}" />
+                <h:message for="tweetText" errorClass="invalid" />
 
-                <h:outputLabel for="phoneNumber" value="Phone #:" />
-                <h:inputText id="phoneNumber"
-                    value="#{newMember.phoneNumber}" />
-                <h:message for="phoneNumber" errorClass="invalid" />
             </h:panelGrid>
 
             <p>
@@ -76,12 +68,8 @@
                 #{_member.name}
             </h:column>
             <h:column>
-                <f:facet name="header">Email</f:facet>
-                #{_member.email}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Phone #</f:facet>
-                #{_member.phoneNumber}
+                <f:facet name="header">Text</f:facet>
+                #{_member.tweetText}
             </h:column>
             <h:column>
                 <f:facet name="header">REST URL</f:facet>
