@@ -58,7 +58,7 @@ public class MemberRepository {
         return em.createQuery(criteria).getResultList();
     }
 
-    public List<Member> findAllOrderedByID() {
+    public List<Member> findAllOrderedById() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
         Root<Member> member = criteria.from(Member.class);

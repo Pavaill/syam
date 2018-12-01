@@ -21,7 +21,9 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Digits;
@@ -36,11 +38,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings("serial")
 @Entity
 @XmlRootElement
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "id"))
 public class Member implements Serializable {
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name="MEMBERS_ID_GENERATOR", sequenceName = "MEMBERS_SEQ", initialValue = 1000)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBERS_ID_GENERATOR")
     private Long id;
 
     @NotNull
@@ -49,15 +52,7 @@ public class Member implements Serializable {
     private String name;
 
     @NotNull
-    @NotEmpty
-    @Email
-    private String email;
-
-    @NotNull
-    @Size(min = 10, max = 12)
-    @Digits(fraction = 0, integer = 12)
-    @Column(name = "phone_number")
-    private String phoneNumber;
+    private String tweetText;
 
     public Long getId() {
         return id;
@@ -75,19 +70,12 @@ public class Member implements Serializable {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getTweetText() {
+        return tweetText;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setTweetText(String tweetText) {
+        this.tweetText = tweetText;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
 }
