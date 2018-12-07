@@ -1,0 +1,23 @@
+version: '2'
+services:
+  some-mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - /home/couderc/Documents/workspace/syam-media/webapp-media/volumes/database:/var/lib/mysql
+  media:
+    image: webapp-media
+    links:
+      - some-mysql:mysql
+    ports:
+      - 8080:8080
+      - 9990:9990
+      - 8787:8787
+    volumes:
+      - /home/couderc/Documents/workspace/syam-media/webapp-media/target:/opt/jboss/wildfly/standalone/deployments
+      - /home/couderc/Documents/workspace/syam-media/webapp-media/volumes/images:/opt/jboss/wildfly/domain/tmp
+  server-apache:
+    image: alpine
+    volumes:
+    - /home/couderc/Documents/workspace/syam-media/webapp-media/volumes

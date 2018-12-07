@@ -144,10 +144,10 @@ public class MemberResourceRESTService {
      * If the error is caused because an existing member with the same email is registered it throws a regular validation
      * exception so that it can be interpreted separately.
      * </p>
-     * 
+     *
      * @param member Member to be validated
      * @throws ConstraintViolationException If Bean Validation errors exist
-     * @throws ValidationException If member with the same email already exists
+     * @throws ValidationException          If member with the same email already exists
      */
     private void validateMember(Member member) throws ConstraintViolationException, ValidationException {
         // Create a bean validator and check for issues.
@@ -161,7 +161,7 @@ public class MemberResourceRESTService {
     /**
      * Creates a JAX-RS "Bad Request" response including a map of all violation fields, and their message. This can then be used
      * by clients to show violations.
-     * 
+     *
      * @param violations A set of violations that needs to be reported
      * @return JAX-RS response containing all violations
      */
