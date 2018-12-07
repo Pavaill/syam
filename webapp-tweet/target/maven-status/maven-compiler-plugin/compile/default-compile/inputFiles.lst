@@ -1,8 +1,8 @@
-/home/twitter/Bureau/syam/webapp-tweet/src/main/java/com/syam/service/TweetRegistration.java
-/home/twitter/Bureau/syam/webapp-tweet/src/main/java/com/syam/controller/TweetController.java
-/home/twitter/Bureau/syam/webapp-tweet/src/main/java/com/syam/data/TweetListProducer.java
-/home/twitter/Bureau/syam/webapp-tweet/src/main/java/com/syam/util/Resources.java
-/home/twitter/Bureau/syam/webapp-tweet/src/main/java/com/syam/data/TweetRepository.java
-/home/twitter/Bureau/syam/webapp-tweet/src/main/java/com/syam/rest/TweetResourceRESTService.java
-/home/twitter/Bureau/syam/webapp-tweet/src/main/java/com/syam/model/Tweet.java
-/home/twitter/Bureau/syam/webapp-tweet/src/main/java/com/syam/rest/JaxRsActivator.java
+/home/maxime/Documents/syam/webapp-tweet/src/main/java/com/syam/model/Tweet.java
+/home/maxime/Documents/syam/webapp-tweet/src/main/java/com/syam/controller/TweetController.java
+/home/maxime/Documents/syam/webapp-tweet/src/main/java/com/syam/service/TweetRegistration.java
+/home/maxime/Documents/syam/webapp-tweet/src/main/java/com/syam/rest/JaxRsActivator.java
+/home/maxime/Documents/syam/webapp-tweet/src/main/java/com/syam/util/Resources.java
+/home/maxime/Documents/syam/webapp-tweet/src/main/java/com/syam/rest/TweetResourceRESTService.java
+/home/maxime/Documents/syam/webapp-tweet/src/main/java/com/syam/data/TweetRepository.java
+/home/maxime/Documents/syam/webapp-tweet/src/main/java/com/syam/data/TweetListProducer.java
