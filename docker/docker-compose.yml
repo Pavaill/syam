@@ -1,0 +1,18 @@
+version: '2'
+services:
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - /home/twitter/Bureau/syam/volumes/database:/var/lib/mysql
+  media:
+    image: webapp-tweet
+    links:
+      - mysql:mysql
+    ports:
+      - 8080:8080
+      - 9990:9990
+      - 8787:8787
+    volumes:
+      - /home/twitter/Bureau/syam/webapp-tweet/target:/opt/jboss/wildfly/standalone/deployments

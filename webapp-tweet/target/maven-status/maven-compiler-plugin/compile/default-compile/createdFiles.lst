@@ -1,9 +1,9 @@
-com/syam/data/MemberListProducer.class
-com/syam/service/MemberRegistration.class
-com/syam/data/MemberRepository.class
-com/syam/model/Member_.class
+com/syam/model/Tweet_.class
+com/syam/data/TweetRepository.class
+com/syam/service/TweetRegistration.class
 com/syam/rest/JaxRsActivator.class
 com/syam/util/Resources.class
-com/syam/model/Member.class
-com/syam/controller/MemberController.class
-com/syam/rest/MemberResourceRESTService.class
+com/syam/model/Tweet.class
+com/syam/controller/TweetController.class
+com/syam/rest/TweetResourceRESTService.class
+com/syam/data/TweetListProducer.class
