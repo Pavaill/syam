@@ -16,6 +16,8 @@
  */
 package com.syam.util;
 
+import com.syam.model.Tweet;
+
 import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
@@ -43,9 +45,10 @@ public class Resources {
     @PersistenceContext
     private EntityManager em;
 
+
     @Produces
     public Logger produceLog(InjectionPoint injectionPoint) {
-        return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
+        return Logger.getLogger(Tweet.class.getName());
     }
 
     @Produces

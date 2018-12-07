@@ -28,7 +28,7 @@
       <provider>org.hibernate.ejb.HibernatePersistence</provider>
       <jta-data-source>MySqlDS</jta-data-source>
 
-      <class>com.td.syam.model.Member</class>
+      <class>com.td.syam.model.Tweet</class>
 
       <properties>
          <property name="hibernate.show_sql" value="true"/>

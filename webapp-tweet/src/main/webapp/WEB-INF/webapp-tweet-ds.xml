@@ -37,7 +37,7 @@
 
     <datasource jndi-name="MySqlDS" pool-name="controller"
                 enabled="true" use-java-context="true">
-        <connection-url>jdbc:mysql://mysql:3306/insta?createDatabaseIfNotExist=true</connection-url>
+        <connection-url>jdbc:mysql://mysql:3306/twitter?createDatabaseIfNotExist=true</connection-url>
         <driver>mysql</driver>
         <security>
             <user-name>root</user-name>

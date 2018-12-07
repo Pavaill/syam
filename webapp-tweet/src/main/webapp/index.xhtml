@@ -32,11 +32,11 @@
             <h2>Tweet post</h2>
             <h:panelGrid columns="3" columnClasses="titleCell">
                 <h:outputLabel for="name" value="Name:" />
-                <h:inputText id="name" value="#{newMember.name}" />
+                <h:inputText id="name" value="#{newTweet.name}" />
                 <h:message for="name" errorClass="invalid" />
 
                 <h:outputLabel for="tweetText" value="Text:" />
-                <h:inputText id="tweetText" value="#{newMember.tweetText}" />
+                <h:inputText id="tweetText" value="#{newTweet.tweetText}" />
                 <h:message for="tweetText" errorClass="invalid" />
 
             </h:panelGrid>
@@ -44,7 +44,7 @@
             <p>
                 <h:panelGrid columns="2">
                     <h:commandButton id="register"
-                        action="#{memberController.register}"
+                        action="#{tweetController.register}"
                         value="Register" styleClass="register" />
                     <h:messages styleClass="messages"
                         errorClass="invalid" infoClass="valid"
@@ -52,33 +52,33 @@
                 </h:panelGrid>
             </p>
         </h:form>
-        <h2>Members</h2>
-        <h:panelGroup rendered="#{empty members}">
-            <em>No registered members.</em>
+        <h2>Tweets</h2>
+        <h:panelGroup rendered="#{empty tweets}">
+            <em>No registered tweets.</em>
         </h:panelGroup>
-        <h:dataTable var="_member" value="#{members}"
-            rendered="#{not empty members}"
+        <h:dataTable var="_tweet" value="#{tweets}"
+            rendered="#{not empty tweets}"
             styleClass="simpletablestyle">
             <h:column>
                 <f:facet name="header">Id</f:facet>
-                #{_member.id}
+                #{_tweet.id}
             </h:column>
             <h:column>
                 <f:facet name="header">Name</f:facet>
-                #{_member.name}
+                #{_tweet.name}
             </h:column>
             <h:column>
                 <f:facet name="header">Text</f:facet>
-                #{_member.tweetText}
+                #{_tweet.tweetText}
             </h:column>
             <h:column>
                 <f:facet name="header">REST URL</f:facet>
                 <a
-                    href="#{request.contextPath}/rest/members/#{_member.id}">/rest/members/#{_member.id}</a>
+                    href="#{request.contextPath}/rest/tweets/#{_tweet.id}">/rest/tweets/#{_tweet.id}</a>
             </h:column>
             <f:facet name="footer">
-            REST URL for all members: <a
-                    href="#{request.contextPath}/rest/members">/rest/members</a>
+            REST URL for all tweets: <a
+                    href="#{request.contextPath}/rest/tweets">/rest/tweets</a>
             </f:facet>
         </h:dataTable>
     </ui:define>

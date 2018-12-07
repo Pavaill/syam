@@ -34,7 +34,7 @@ JAX-RS is an update specification for Java EE 7. It allows application developer
         title="The webapp-tweet example in depth">
      <description>
        The webapp-tweet application shows off a number of Java EE technologies such as CDI, JSF, EJB, JTA, JAX-RS and Arquillian. 
-       It does this by providing a member registration database, available via JSF and JAX-RS.
+       It does this by providing a tweet registration database, available via JSF and JAX-RS.
 <br/><br/>
 As usual, let&apos;s start by looking at the necessary deployment descriptors. 
 By now, we're very used to seeing <b>beans.xml</b> and <b>faces-config.xml</b> in <b>WEB-INF/</b> 
@@ -125,7 +125,7 @@ We discussed both of these files in detail in The <b>greeter example in depth</b
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/webapp/index.xhtml,fromLine=47,toLine=49)"/>
     </subitem>
     <subitem
-            label="This application exposes REST endpoints for each registered member. The application helpfully displays the URL to the REST endpoint on this page. "
+            label="This application exposes REST endpoints for each registered tweet. The application helpfully displays the URL to the REST endpoint on this page. "
             skip="true">
     <command
       required="false"
@@ -199,7 +199,7 @@ We discussed both of these files in detail in The <b>greeter example in depth</b
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/java/com/syam/data/MemberRepository.java,fromLine=32)"/>
   </subitem>
   <subitem
-            label="The JPA criteria api is used to load a member by his or her unique identifier, email address."
+            label="The JPA criteria api is used to load a tweet by his or her unique identifier, email address."
             skip="true">
     <command
       required="false"
@@ -244,7 +244,7 @@ We discussed both of these files in detail in The <b>greeter example in depth</b
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/java/com/syam/data/MemberListProducer.java,fromLine=40,toLine=41)"/>
   </subitem>
   <subitem
-            label="The observer method is notified whenever a member is created, removed, or updated. This allows us to refresh the list of members whenever they are needed. This is a good approach as it allows us to cache the list of members, but keep it up to date at the same time."
+            label="The observer method is notified whenever a tweet is created, removed, or updated. This allows us to refresh the list of members whenever they are needed. This is a good approach as it allows us to cache the list of members, but keep it up to date at the same time."
             skip="true">
     <command
       required="false"
@@ -274,7 +274,7 @@ We discussed both of these files in detail in The <b>greeter example in depth</b
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/java/com/syam/service/MemberRegistration.java,fromLine=31)"/>
   </subitem>
   <subitem
-            label="An event is sent every time a member is updated. This allows other pieces of code (in this quickstart the member list is refreshed) to react to changes in the member list without any coupling to this class. "
+            label="An event is sent every time a tweet is updated. This allows other pieces of code (in this quickstart the tweet list is refreshed) to react to changes in the tweet list without any coupling to this class. "
             skip="true">
     <command
       required="false"
@@ -354,7 +354,7 @@ We discussed both of these files in detail in The <b>greeter example in depth</b
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/java/com/syam/controller/MemberController.java,fromLine=43,toLine=45)"/>
   </subitem>
   <subitem
-            label="The @PostConstruct annotation causes a new member object to be placed in the newMember field when the bean is instantiated."
+            label="The @PostConstruct annotation causes a new tweet object to be placed in the newMember field when the bean is instantiated."
             skip="true">
     <command
       required="false"
@@ -431,21 +431,21 @@ We discussed both of these files in detail in The <b>greeter example in depth</b
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/java/com/syam/rest/MemberResourceRESTService.java,fromLine=56)"/>
   </subitem>
   <subitem
-            label="CDI allows us to inject a Bean Validation Validator instance, which is used to validate the POSTed member before it is persisted."
+            label="CDI allows us to inject a Bean Validation Validator instance, which is used to validate the POSTed tweet before it is persisted."
             skip="true">
     <command
       required="false"
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/java/com/syam/rest/MemberResourceRESTService.java,fromLine=59)"/>
   </subitem>
   <subitem
-            label="MemberRepository is injected to allow us to query the member database "
+            label="MemberRepository is injected to allow us to query the tweet database "
             skip="true">
     <command
       required="false"
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/java/com/syam/rest/MemberResourceRESTService.java,fromLine=62)"/>
   </subitem>
   <subitem
-            label="MemberRegistration is injected to allow us to alter the member database."
+            label="MemberRegistration is injected to allow us to alter the tweet database."
             skip="true">
     <command
       required="false"
@@ -459,7 +459,7 @@ We discussed both of these files in detail in The <b>greeter example in depth</b
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/java/com/syam/rest/MemberResourceRESTService.java,fromLine=68,toLine=72)"/>
   </subitem>
   <subitem
-            label="The lookupMemberById() method is called when the endpoint is accessed with a member id parameter appended (for example rest/members/1). Again, the object is automatically marshalled to JSON by RESTEasy."
+            label="The lookupMemberById() method is called when the endpoint is accessed with a tweet id parameter appended (for example rest/members/1). Again, the object is automatically marshalled to JSON by RESTEasy."
             skip="true">
     <command
       required="false"
@@ -473,7 +473,7 @@ We discussed both of these files in detail in The <b>greeter example in depth</b
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/java/com/syam/rest/MemberResourceRESTService.java,fromLine=89,toLine=120)"/>
   </subitem>
   <subitem
-            label="In order to ensure that the member is valid, we call the validateMember method, which validates the object, and adds any constraint violations to the response. These can then be handled on the client side, and displayed to the user."
+            label="In order to ensure that the tweet is valid, we call the validateMember method, which validates the object, and adds any constraint violations to the response. These can then be handled on the client side, and displayed to the user."
             skip="true">
     <command
       required="false"
@@ -610,7 +610,7 @@ We discussed both of these files in detail in The <b>greeter example in depth</b
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/test/java/com/syam/test/MemberRegistrationTest.java,fromLine=49,toLine=50)"/>
   </subitem>
   <subitem
-            label="The test method works as you would expect - creates a new member, registers them, and then verifies that the member was created "
+            label="The test method works as you would expect - creates a new tweet, registers them, and then verifies that the tweet was created "
             skip="true">
     <command
       required="false"
