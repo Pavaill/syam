@@ -1,8 +1,9 @@
-/home/maxime/Documents/syam/webapp-tweet/src/main/java/com/syam/model/Tweet.java
-/home/maxime/Documents/syam/webapp-tweet/src/main/java/com/syam/controller/TweetController.java
-/home/maxime/Documents/syam/webapp-tweet/src/main/java/com/syam/service/TweetRegistration.java
-/home/maxime/Documents/syam/webapp-tweet/src/main/java/com/syam/rest/JaxRsActivator.java
-/home/maxime/Documents/syam/webapp-tweet/src/main/java/com/syam/util/Resources.java
-/home/maxime/Documents/syam/webapp-tweet/src/main/java/com/syam/rest/TweetResourceRESTService.java
-/home/maxime/Documents/syam/webapp-tweet/src/main/java/com/syam/data/TweetRepository.java
-/home/maxime/Documents/syam/webapp-tweet/src/main/java/com/syam/data/TweetListProducer.java
+/Users/utilisateur/Documents/GitHub/syam/webapp-tweet/src/main/java/com/syam/service/TweetRegistration.java
+/Users/utilisateur/Documents/GitHub/syam/webapp-tweet/src/main/java/com/syam/data/TweetRepository.java
+/Users/utilisateur/Documents/GitHub/syam/webapp-tweet/src/main/java/com/syam/util/Resources.java
+/Users/utilisateur/Documents/GitHub/syam/webapp-tweet/src/main/java/com/syam/controller/TweetController.java
+/Users/utilisateur/Documents/GitHub/syam/webapp-tweet/src/main/java/com/syam/rest/TweetResourceRESTService.java
+/Users/utilisateur/Documents/GitHub/syam/webapp-tweet/src/main/java/com/syam/rest/TooLongTweetException.java
+/Users/utilisateur/Documents/GitHub/syam/webapp-tweet/src/main/java/com/syam/rest/JaxRsActivator.java
+/Users/utilisateur/Documents/GitHub/syam/webapp-tweet/src/main/java/com/syam/data/TweetListProducer.java
+/Users/utilisateur/Documents/GitHub/syam/webapp-tweet/src/main/java/com/syam/model/Tweet.java
