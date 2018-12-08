@@ -91,10 +91,10 @@ public class TweetResourceRESTService {
 
     /**
      * Recuperation de tous les tweets
-     * chemin : /webapp-tweet/rest/tweet/allTweet
+     * chemin : /webapp-tweet/rest/tweet/alltweet
      */
     @GET
-    @Path("/allTweet")
+    @Path("/alltweet")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Tweet> lookupAllTweet() {
         List<Tweet> tweet = repository.findAllOrderedById();
