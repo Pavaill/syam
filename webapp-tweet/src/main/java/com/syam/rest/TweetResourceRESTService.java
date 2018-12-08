@@ -90,6 +90,21 @@ public class TweetResourceRESTService {
     }
 
     /**
+     * Recuperation de tous les tweets
+     * chemin : /webapp-tweet/rest/tweet/allTweet
+     */
+    @GET
+    @Path("/allTweet")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Tweet> lookupAllTweet() {
+        List<Tweet> tweet = repository.findAllOrderedById();
+        if (tweet == null) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        return tweet;
+    }
+
+    /**
      * Creation d'un nouveau tweet
      * créer un Json avec le nom et le texte du tweet
      */
