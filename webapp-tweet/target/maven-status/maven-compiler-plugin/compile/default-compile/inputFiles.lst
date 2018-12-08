@@ -5,5 +5,7 @@
 /Users/utilisateur/Documents/GitHub/syam/webapp-tweet/src/main/java/com/syam/rest/TweetResourceRESTService.java
 /Users/utilisateur/Documents/GitHub/syam/webapp-tweet/src/main/java/com/syam/rest/TooLongTweetException.java
 /Users/utilisateur/Documents/GitHub/syam/webapp-tweet/src/main/java/com/syam/rest/JaxRsActivator.java
+/Users/utilisateur/Documents/GitHub/syam/webapp-tweet/src/main/java/com/syam/rest/NomVideException.java
 /Users/utilisateur/Documents/GitHub/syam/webapp-tweet/src/main/java/com/syam/data/TweetListProducer.java
 /Users/utilisateur/Documents/GitHub/syam/webapp-tweet/src/main/java/com/syam/model/Tweet.java
+/Users/utilisateur/Documents/GitHub/syam/webapp-tweet/src/main/java/com/syam/rest/TweetVideException.java
