@@ -1,9 +1,12 @@
 com/syam/model/Tweet_.class
-com/syam/data/TweetRepository.class
+com/syam/rest/TweetVideException.class
 com/syam/service/TweetRegistration.class
-com/syam/rest/JaxRsActivator.class
 com/syam/model/Tweet.class
-com/syam/util/Resources.class
 com/syam/controller/TweetController.class
-com/syam/rest/TweetResourceRESTService.class
+com/syam/data/TweetRepository.class
+com/syam/util/Resources.class
+com/syam/rest/JaxRsActivator.class
+com/syam/rest/TooLongTweetException.class
+com/syam/rest/NomVideException.class
 com/syam/data/TweetListProducer.class
+com/syam/rest/TweetResourceRESTService.class

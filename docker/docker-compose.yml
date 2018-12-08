@@ -5,7 +5,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - /home/maxime/Documents/syam/volumes/database:/var/lib/mysql
+      - /Users/utilisateur/Documents/GitHub/syam/volumes/database:/var/lib/mysql
   media:
     image: webapp-tweet
     links:
@@ -15,4 +15,4 @@ services:
       - 9990:9990
       - 8787:8787
     volumes:
-      - /home/maxime/Documents/syam/webapp-tweet/target:/opt/jboss/wildfly/standalone/deployments
+      - /Users/utilisateur/Documents/GitHub/syam/webapp-tweet/target:/opt/jboss/wildfly/standalone/deployments

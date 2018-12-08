@@ -1,9 +1,0 @@
-com/syam/data/MemberListProducer.class
-com/syam/service/MemberRegistration.class
-com/syam/data/MemberRepository.class
-com/syam/model/Member_.class
-com/syam/util/Resources.class
-com/syam/rest/JaxRsActivator.class
-com/syam/model/Member.class
-com/syam/rest/MemberResourceRESTService.class
-com/syam/controller/MemberController.class

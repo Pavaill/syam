@@ -54,6 +54,8 @@ import com.syam.service.TweetRegistration;
 @RequestScoped
 public class TweetResourceRESTService {
 
+    private static final int tailleMaxTweet = 200;
+
     @Inject
     private Logger log;
 
@@ -72,6 +74,10 @@ public class TweetResourceRESTService {
         return repository.findAllOrderedByName();
     }
 
+    /**
+     * Recuperation tweet à partir de son id
+     * chemin : /webapp-tweet/rest/tweet/numeroID
+     */
     @GET
     @Path("/{id:[0-9][0-9]*}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -84,8 +90,23 @@ public class TweetResourceRESTService {
     }
 
     /**
-     * Creates a new tweet from the values provided. Performs validation, and will return a JAX-RS response with either 200 ok,
-     * or with a map of fields, and related errors.
+     * Recuperation de tous les tweets
+     * chemin : /webapp-tweet/rest/tweet/allTweet
+     */
+    @GET
+    @Path("/allTweet")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Tweet> lookupAllTweet() {
+        List<Tweet> tweet = repository.findAllOrderedById();
+        if (tweet == null) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        return tweet;
+    }
+
+    /**
+     * Creation d'un nouveau tweet
+     * créer un Json avec le nom et le texte du tweet
      */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -98,10 +119,18 @@ public class TweetResourceRESTService {
             // Validates tweet using bean validation
             validateTweet(tweet);
 
+            //methode register permet d'enregistrer le tweet dans la base de données
             registration.register(tweet);
 
+            //creation du Json
+            //on retourne l'id du tweet
+            JsonObject jsonFile = Json.createObjectBuilder()
+                    .add("idTweet", tweet.getId())
+                    .build();
+
             // Create an "ok" response
-            builder = Response.ok();
+            builder = Response.ok(jsonFile);
+
         } catch (ConstraintViolationException ce) {
             // Handle bean validation issues
             builder = createViolationResponse(ce.getConstraintViolations());
@@ -110,6 +139,18 @@ public class TweetResourceRESTService {
             Map<String, String> responseObj = new HashMap<>();
             responseObj.put("email", "Email taken");
             builder = Response.status(Response.Status.CONFLICT).entity(responseObj);
+        } catch (TooLongTweetException e) {
+            Map<String, String> responseObj = new HashMap<>();
+            responseObj.put("error", "Tweet trop long");
+            builder = Response.status(Response.Status.FORBIDDEN).entity(responseObj);
+        } catch (NomVideException e) {
+            Map<String, String> responseObj = new HashMap<>();
+            responseObj.put("error", "Nom vide");
+            builder = Response.status(Response.Status.FORBIDDEN).entity(responseObj);
+        } catch (TweetVideException e) {
+            Map<String, String> responseObj = new HashMap<>();
+            responseObj.put("error", "Tweet vide");
+            builder = Response.status(Response.Status.FORBIDDEN).entity(responseObj);
         } catch (Exception e) {
             // Handle generic exceptions
             Map<String, String> responseObj = new HashMap<>();
@@ -120,10 +161,11 @@ public class TweetResourceRESTService {
         return builder.build();
     }
 
+    /*
     @POST
     @Path("/tweet/{login}/{text}")
     @Produces("application/json")
-    public Response getTweetJSON(@PathParam("login") String login, @PathParam("text") String text) {
+    public Response postTweetJSON(@PathParam("login") String login, @PathParam("text") String text) {
         System.out.println("login: " + login);
 
         JsonObject jsonFile = Json.createObjectBuilder()
@@ -133,6 +175,7 @@ public class TweetResourceRESTService {
 
         return Response.ok(jsonFile).build();
     }
+    $/
 
     /**
      * <p>
@@ -148,12 +191,29 @@ public class TweetResourceRESTService {
      * @throws ConstraintViolationException If Bean Validation errors exist
      * @throws ValidationException          If tweet with the same email already exists
      */
-    private void validateTweet(Tweet tweet) throws ConstraintViolationException, ValidationException {
+    private void validateTweet(Tweet tweet) throws ConstraintViolationException, ValidationException, TooLongTweetException, NomVideException, TweetVideException {
         // Create a bean validator and check for issues.
         Set<ConstraintViolation<Tweet>> violations = validator.validate(tweet);
 
         if (!violations.isEmpty()) {
             throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(violations));
+        }
+
+        //test si le tweet est inférieur à 200 caractères
+        String tweetText = tweet.getTweetText();
+        if(tweetText.length() > tailleMaxTweet){
+            throw new TooLongTweetException();
+        }
+
+        //test si le champ du nom n'est pas vide
+        String tweetName = tweet.getName();
+        if(tweetName.equals("")){
+            throw new NomVideException();
+        }
+
+        //test si le tweet n'est pas vide
+        if(tweetText.equals("")){
+            throw new TweetVideException();
         }
     }
 

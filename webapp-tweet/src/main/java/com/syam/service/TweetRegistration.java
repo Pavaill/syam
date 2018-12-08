@@ -40,6 +40,7 @@ public class TweetRegistration {
     public void register(Tweet tweet) throws Exception {
         log.info("Registering " + tweet.getName());
         em.persist(tweet);
+        //envoie l'objet en base
         tweetEventSrc.fire(tweet);
     }
 }
