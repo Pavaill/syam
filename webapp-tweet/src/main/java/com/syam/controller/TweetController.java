@@ -23,9 +23,21 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.ValidationException;
+import javax.ws.rs.core.Response;
 
 import com.syam.model.Tweet;
+import com.syam.rest.NomVideException;
+import com.syam.rest.TooLongTweetException;
+import com.syam.rest.TweetVideException;
 import com.syam.service.TweetRegistration;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 // The @Model stereotype is a convenience mechanism to make this a request-scoped bean that has an
 // EL name
@@ -33,6 +45,8 @@ import com.syam.service.TweetRegistration;
 // http://www.cdi-spec.org/faq/#accordion6
 @Model
 public class TweetController {
+
+    private static final int tailleMaxTweet = 200;
 
     @Inject
     private FacesContext facesContext;
@@ -51,14 +65,48 @@ public class TweetController {
 
     public void register() throws Exception {
         try {
+            // Validates tweet using bean validation
+            validateTweet(newTweet);
             tweetRegistration.register(newTweet);
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registered!", "Registration successful");
             facesContext.addMessage(null, m);
             initNewTweet();
+        } catch (TooLongTweetException e) {
+            String errorMessage = getRootErrorMessage(e);
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Registration unsuccessful");
+            facesContext.addMessage(null, m);
+        } catch (NomVideException e) {
+            String errorMessage = getRootErrorMessage(e);
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Registration unsuccessful");
+            facesContext.addMessage(null, m);
+        } catch (TweetVideException e) {
+            String errorMessage = getRootErrorMessage(e);
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Registration unsuccessful");
+            facesContext.addMessage(null, m);
         } catch (Exception e) {
             String errorMessage = getRootErrorMessage(e);
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Registration unsuccessful");
             facesContext.addMessage(null, m);
+        }
+    }
+
+    private void validateTweet(Tweet tweet) throws ConstraintViolationException, ValidationException, TooLongTweetException, NomVideException, TweetVideException {
+
+        //test si le tweet est inférieur à 200 caractères
+        String tweetText = tweet.getTweetText();
+        if(tweetText.length() > tailleMaxTweet){
+            throw new TooLongTweetException();
+        }
+
+        //test si le champ du nom n'est pas vide
+        String tweetName = tweet.getName();
+        if(tweetName.equals("")){
+            throw new NomVideException();
+        }
+
+        //test si le tweet n'est pas vide
+        if(tweetText.equals("")){
+            throw new TweetVideException();
         }
     }
 
