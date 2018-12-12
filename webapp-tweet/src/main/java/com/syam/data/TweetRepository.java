@@ -17,6 +17,7 @@
 package com.syam.data;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -32,20 +33,17 @@ public class TweetRepository {
     @Inject
     private EntityManager em;
 
+    @Inject
+    private Event<Tweet> tweetEventSrc;
+
     public Tweet findById(Long id) {
         return em.find(Tweet.class, id);
     }
 
-    public Tweet findByEmail(String email) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Tweet> criteria = cb.createQuery(Tweet.class);
-        Root<Tweet> tweet = criteria.from(Tweet.class);
-        // Swap criteria statements if you would like to try out type-safe criteria queries, a new
-        // feature in JPA 2.0
-        // criteria.select(tweet).where(cb.equal(tweet.get(tweet_.name), email));
-        criteria.select(tweet).where(cb.equal(tweet.get("email"), email));
-        return em.createQuery(criteria).getSingleResult();
+    public void deleteById(Long id) {
+        em.remove(findById(id));
     }
+
 
     public List<Tweet> findAllOrderedByName() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
