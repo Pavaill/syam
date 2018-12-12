@@ -20,6 +20,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
@@ -68,4 +69,5 @@ public class TweetRepository {
         criteria.select(tweet).orderBy(cb.asc(tweet.get("id")));
         return em.createQuery(criteria).getResultList();
     }
+
 }
