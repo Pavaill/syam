@@ -1,5 +1,10 @@
-toto;feorigeoigjeroigjer
-toto;test�
-tata;(df!
-y�;dfghjkl
-titi;ofjeg2374
+"toto";"test normal"
+"coco";"test avec accent é"
+"tata";"test avec signe !)"
+"titi";"test avec nombre 23954"
+"titi";"test avec MAJUSCULE"
+"pépé";"test avec accent dans nom"
+"soso!";"test avec symbole dans nom"
+"soso23";"test avec nombre dans nom"
+"SoSo";"test avec majuscule dans nom"
+"akio";"fs't(he!gçsjfoigà"

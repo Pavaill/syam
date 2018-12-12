@@ -153,15 +153,15 @@ public class TweetResourceRESTService {
         } catch (TooLongTweetException e) {
             Map<String, String> responseObj = new HashMap<>();
             responseObj.put("error", "Tweet trop long");
-            builder = Response.status(Response.Status.FORBIDDEN).entity(responseObj);
+            builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
         } catch (NomVideException e) {
             Map<String, String> responseObj = new HashMap<>();
             responseObj.put("error", "Nom vide");
-            builder = Response.status(Response.Status.FORBIDDEN).entity(responseObj);
+            builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
         } catch (TweetVideException e) {
             Map<String, String> responseObj = new HashMap<>();
             responseObj.put("error", "Tweet vide");
-            builder = Response.status(Response.Status.FORBIDDEN).entity(responseObj);
+            builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
         } catch (Exception e) {
             // Handle generic exceptions
             Map<String, String> responseObj = new HashMap<>();
@@ -204,15 +204,11 @@ public class TweetResourceRESTService {
         } catch (TooLongTweetException e) {
             Map<String, String> responseObj = new HashMap<>();
             responseObj.put("error", "Tweet trop long");
-            builder = Response.status(Response.Status.FORBIDDEN).entity(responseObj);
-        } catch (NomVideException e) {
-            Map<String, String> responseObj = new HashMap<>();
-            responseObj.put("error", "Nom vide");
-            builder = Response.status(Response.Status.FORBIDDEN).entity(responseObj);
+            builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
         } catch (TweetVideException e) {
             Map<String, String> responseObj = new HashMap<>();
             responseObj.put("error", "Tweet vide");
-            builder = Response.status(Response.Status.FORBIDDEN).entity(responseObj);
+            builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
         } catch (Exception e) {
             // Handle generic exceptions
             Map<String, String> responseObj = new HashMap<>();
@@ -229,7 +225,7 @@ public class TweetResourceRESTService {
      * chemin : /webapp-tweet/rest/delete/numeroID
      */
     @DELETE
-    @Path("/delete/{id:[0-9][0-9]*}")
+    @Path("/{id:[0-9][0-9]*}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteTweet(@PathParam("id") long id) {
 
@@ -252,18 +248,6 @@ public class TweetResourceRESTService {
         } catch (ConstraintViolationException ce) {
             // Handle bean validation issues
             builder = createViolationResponse(ce.getConstraintViolations());
-        } catch (TooLongTweetException e) {
-            Map<String, String> responseObj = new HashMap<>();
-            responseObj.put("error", "Tweet trop long");
-            builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
-        } catch (NomVideException e) {
-            Map<String, String> responseObj = new HashMap<>();
-            responseObj.put("error", "Nom vide");
-            builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
-        } catch (TweetVideException e) {
-            Map<String, String> responseObj = new HashMap<>();
-            responseObj.put("error", "Tweet vide");
-            builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
         } catch (Exception e) {
             // Handle generic exceptions
             Map<String, String> responseObj = new HashMap<>();

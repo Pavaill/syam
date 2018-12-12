@@ -18,6 +18,9 @@ package com.syam.service;
 
 import com.syam.data.TweetRepository;
 import com.syam.model.Tweet;
+import com.syam.rest.NomVideException;
+import com.syam.rest.TooLongTweetException;
+import com.syam.rest.TweetVideException;
 
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
@@ -28,6 +31,8 @@ import java.util.logging.Logger;
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
 public class TweetModification {
+
+    private static final int tailleMaxTweet = 200;
 
     @Inject
     private Logger log;
@@ -41,8 +46,18 @@ public class TweetModification {
     @Inject
     private TweetRepository repository;
 
-    public void modify(Long id, String text) throws Exception {
+    public void modify(Long id, String text) throws Exception, TooLongTweetException, TweetVideException {
         log.info("Modifying tweet id:" + id);
+
+        //verification
+        if (text.length() > tailleMaxTweet) {
+            throw new TooLongTweetException();
+        }
+        //test si le tweet n'est pas vide
+        if (text.equals("")) {
+            throw new TweetVideException();
+        }
+
         Tweet tweet =repository.findById(id);
         tweet.setTweetText(text);
         em.persist(tweet);
