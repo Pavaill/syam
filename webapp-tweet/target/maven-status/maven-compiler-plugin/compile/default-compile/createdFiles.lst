@@ -8,5 +8,7 @@ com/syam/util/Resources.class
 com/syam/rest/JaxRsActivator.class
 com/syam/rest/TooLongTweetException.class
 com/syam/rest/NomVideException.class
-com/syam/data/TweetListProducer.class
+com/syam/service/TweetModification.class
 com/syam/rest/TweetResourceRESTService.class
+com/syam/data/TweetListProducer.class
+com/syam/service/TweetDeletion.class

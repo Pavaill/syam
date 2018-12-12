@@ -38,6 +38,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -47,7 +48,10 @@ import javax.ws.rs.core.Response;
 
 import com.syam.data.TweetRepository;
 import com.syam.model.Tweet;
+import com.syam.service.TweetDeletion;
+import com.syam.service.TweetModification;
 import com.syam.service.TweetRegistration;
+import org.json.JSONObject;
 
 /**
  * JAX-RS Example
@@ -71,6 +75,13 @@ public class TweetResourceRESTService {
 
     @Inject
     TweetRegistration registration;
+
+    @Inject
+    TweetModification modification;
+
+    @Inject
+    TweetDeletion deletion;
+
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -108,6 +119,7 @@ public class TweetResourceRESTService {
         return tweet;
     }
 
+
     /**
      * Creation d'un nouveau tweet
      * créer un Json avec le nom et le texte du tweet
@@ -138,11 +150,108 @@ public class TweetResourceRESTService {
         } catch (ConstraintViolationException ce) {
             // Handle bean validation issues
             builder = createViolationResponse(ce.getConstraintViolations());
-        } catch (ValidationException e) {
-            // Handle the unique constrain violation
+        } catch (TooLongTweetException e) {
             Map<String, String> responseObj = new HashMap<>();
-            responseObj.put("email", "Email taken");
-            builder = Response.status(Response.Status.CONFLICT).entity(responseObj);
+            responseObj.put("error", "Tweet trop long");
+            builder = Response.status(Response.Status.FORBIDDEN).entity(responseObj);
+        } catch (NomVideException e) {
+            Map<String, String> responseObj = new HashMap<>();
+            responseObj.put("error", "Nom vide");
+            builder = Response.status(Response.Status.FORBIDDEN).entity(responseObj);
+        } catch (TweetVideException e) {
+            Map<String, String> responseObj = new HashMap<>();
+            responseObj.put("error", "Tweet vide");
+            builder = Response.status(Response.Status.FORBIDDEN).entity(responseObj);
+        } catch (Exception e) {
+            // Handle generic exceptions
+            Map<String, String> responseObj = new HashMap<>();
+            responseObj.put("error", e.getMessage());
+            builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
+        }
+
+        return builder.build();
+    }
+
+    /**
+     * Modification tweet par id
+     */
+    @PUT
+    @Path("/{id:[0-9][0-9]*}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response modifyTweet(@PathParam("id") long i,String inputJsonObj) {
+
+        Response.ResponseBuilder builder = null;
+
+        try {
+
+            JSONObject innerJson = new JSONObject(inputJsonObj);
+            String text= innerJson.getString("tweetText");
+            modification.modify(i, text);
+
+            //creation du Json
+            //on retourne l'id du tweet
+            JsonObject jsonFile = Json.createObjectBuilder()
+                    .add("idTweet", i)
+                    .build();
+
+            // Create an "ok" response
+            builder = Response.ok(jsonFile);
+
+        } catch (ConstraintViolationException ce) {
+            // Handle bean validation issues
+            builder = createViolationResponse(ce.getConstraintViolations());
+        } catch (TooLongTweetException e) {
+            Map<String, String> responseObj = new HashMap<>();
+            responseObj.put("error", "Tweet trop long");
+            builder = Response.status(Response.Status.FORBIDDEN).entity(responseObj);
+        } catch (NomVideException e) {
+            Map<String, String> responseObj = new HashMap<>();
+            responseObj.put("error", "Nom vide");
+            builder = Response.status(Response.Status.FORBIDDEN).entity(responseObj);
+        } catch (TweetVideException e) {
+            Map<String, String> responseObj = new HashMap<>();
+            responseObj.put("error", "Tweet vide");
+            builder = Response.status(Response.Status.FORBIDDEN).entity(responseObj);
+        } catch (Exception e) {
+            // Handle generic exceptions
+            Map<String, String> responseObj = new HashMap<>();
+            responseObj.put("error", e.getMessage());
+            builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
+        }
+
+        return builder.build();
+    }
+
+
+    /**
+     * Suppression de tweet à partir de son id
+     * chemin : /webapp-tweet/rest/delete/numeroID
+     */
+    @DELETE
+    @Path("/delete/{id:[0-9][0-9]*}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteTweet(@PathParam("id") long id) {
+
+        Response.ResponseBuilder builder = null;
+
+        try {
+
+            //methode register permet d'enregistrer le tweet dans la base de données
+            deletion.remove(id);
+
+            //creation du Json
+            //on retourne l'id du tweet
+            JsonObject jsonFile = Json.createObjectBuilder()
+                    .add("idTweet", id)
+                    .build();
+
+            // Create an "ok" response
+            builder = Response.ok(jsonFile);
+
+        } catch (ConstraintViolationException ce) {
+            // Handle bean validation issues
+            builder = createViolationResponse(ce.getConstraintViolations());
         } catch (TooLongTweetException e) {
             Map<String, String> responseObj = new HashMap<>();
             responseObj.put("error", "Tweet trop long");
@@ -205,18 +314,18 @@ public class TweetResourceRESTService {
 
         //test si le tweet est inférieur à 200 caractères
         String tweetText = tweet.getTweetText();
-        if(tweetText.length() > tailleMaxTweet){
+        if (tweetText.length() > tailleMaxTweet) {
             throw new TooLongTweetException();
         }
 
         //test si le champ du nom n'est pas vide
         String tweetName = tweet.getName();
-        if(tweetName.equals("")){
+        if (tweetName.equals("")) {
             throw new NomVideException();
         }
 
         //test si le tweet n'est pas vide
-        if(tweetText.equals("")){
+        if (tweetText.equals("")) {
             throw new TweetVideException();
         }
     }
