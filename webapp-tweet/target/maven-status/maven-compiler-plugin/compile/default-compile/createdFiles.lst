@@ -3,6 +3,7 @@ com/syam/rest/TweetVideException.class
 com/syam/service/TweetRegistration.class
 com/syam/model/Tweet.class
 com/syam/controller/TweetController.class
+com/syam/rest/IdInexistantException.class
 com/syam/data/TweetRepository.class
 com/syam/util/Resources.class
 com/syam/rest/JaxRsActivator.class

@@ -18,11 +18,14 @@ package com.syam.service;
 
 import com.syam.data.TweetRepository;
 import com.syam.model.Tweet;
+import com.syam.rest.IdInexistantException;
 
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 import java.util.logging.Logger;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
@@ -41,8 +44,12 @@ public class TweetDeletion {
     @Inject
     private TweetRepository repository;
 
-    public void remove(Long id) throws Exception {
-        log.info("Deleting twweet id:" + id);
-        em.remove(repository.findById(id));
+    public void remove(Long id) throws Exception, IdInexistantException {
+        log.info("Deleting tweet id:" + id);
+        Tweet tweet = repository.findById(id);
+        if (tweet == null) {
+            throw new IdInexistantException();
+        }
+        em.remove(tweet);
     }
 }

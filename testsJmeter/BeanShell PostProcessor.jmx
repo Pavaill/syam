@@ -596,7 +596,7 @@ if (Failure) {
             <stringProp name="parameters"></stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="script">
-if (prev.getResponseCode().equals(&quot;400&quot;)) {
+if (prev.getResponseCode().equals(&quot;404&quot;)) {
  	prev.setSuccessful(true);
     	log.info(&quot;Retour OK&quot;);
 } </stringProp>
@@ -646,7 +646,7 @@ if (prev.getResponseCode().equals(&quot;400&quot;)) {
             <stringProp name="parameters"></stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="script">
-if (prev.getResponseCode().equals(&quot;400&quot;)) {
+if (prev.getResponseCode().equals(&quot;404&quot;)) {
  	prev.setSuccessful(true);
     	log.info(&quot;Retour OK&quot;);
 } </stringProp>

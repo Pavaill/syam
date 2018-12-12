@@ -209,6 +209,10 @@ public class TweetResourceRESTService {
             Map<String, String> responseObj = new HashMap<>();
             responseObj.put("error", "Tweet vide");
             builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
+        } catch (IdInexistantException e) {
+            Map<String, String> responseObj = new HashMap<>();
+            responseObj.put("error", "Id inexistant");
+            builder = Response.status(Response.Status.NOT_FOUND).entity(responseObj);
         } catch (Exception e) {
             // Handle generic exceptions
             Map<String, String> responseObj = new HashMap<>();
@@ -248,6 +252,10 @@ public class TweetResourceRESTService {
         } catch (ConstraintViolationException ce) {
             // Handle bean validation issues
             builder = createViolationResponse(ce.getConstraintViolations());
+        } catch (IdInexistantException e) {
+            Map<String, String> responseObj = new HashMap<>();
+            responseObj.put("error", "Id inexistant");
+            builder = Response.status(Response.Status.NOT_FOUND).entity(responseObj);
         } catch (Exception e) {
             // Handle generic exceptions
             Map<String, String> responseObj = new HashMap<>();

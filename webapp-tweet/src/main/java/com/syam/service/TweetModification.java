@@ -18,7 +18,7 @@ package com.syam.service;
 
 import com.syam.data.TweetRepository;
 import com.syam.model.Tweet;
-import com.syam.rest.NomVideException;
+import com.syam.rest.IdInexistantException;
 import com.syam.rest.TooLongTweetException;
 import com.syam.rest.TweetVideException;
 
@@ -26,6 +26,8 @@ import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 import java.util.logging.Logger;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
@@ -46,7 +48,7 @@ public class TweetModification {
     @Inject
     private TweetRepository repository;
 
-    public void modify(Long id, String text) throws Exception, TooLongTweetException, TweetVideException {
+    public void modify(Long id, String text) throws Exception, TooLongTweetException, TweetVideException, IdInexistantException {
         log.info("Modifying tweet id:" + id);
 
         //verification
@@ -59,6 +61,10 @@ public class TweetModification {
         }
 
         Tweet tweet =repository.findById(id);
+
+        if (tweet == null) {
+            throw new IdInexistantException();
+        }
         tweet.setTweetText(text);
         em.persist(tweet);
     }
