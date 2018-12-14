@@ -89,7 +89,7 @@
             <boolProp name="resetInterpreter">false</boolProp>
             <stringProp name="script">
 log.info(&quot;§§§§§§§§§§§§§§&quot;+vars.get(&quot;BEARER&quot;));
-
+/*
 String access_token= vars.get(&quot;BEARER&quot;);
 
 String delims=&quot;[.]&quot;;
@@ -104,6 +104,7 @@ vars.putObject(&quot;token&quot;,parse[0]);
 
 
 log.info(&quot;§§§§§§§§§§§§§§&quot;+vars.get(&quot;token&quot;));
+*/
 </stringProp>
           </BeanShellPostProcessor>
           <hashTree/>
@@ -180,7 +181,7 @@ log.info(&quot;§§§§§§§§§§§§§§&quot;+vars.get(&quot;token&quot;));
             <boolProp name="resetInterpreter">false</boolProp>
             <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
 
-sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot;+ vars.getObject(&quot;token&quot;)));</stringProp>
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot;+ vars.getObject(&quot;BEARER&quot;)));</stringProp>
           </BeanShellPreProcessor>
           <hashTree/>
           <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
