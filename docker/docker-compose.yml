@@ -5,12 +5,31 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - /Users/utilisateur/Documents/GitHub/syam/volumes/database:/var/lib/mysql
-  media:
+      - /home/couderc/Documents/workspace/syam/volumes/database:/var/lib/mysql
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+
+  keycloak:
+    image: jboss/keycloak:4.6.0.Final
+    environment:
+      DB_VENDOR: MYSQL
+      DB_ADDR: mysql
+      DB_DATABASE: mysql
+      DB_USER: root
+      DB_PASSWORD: root
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+    ports:
+      - 8080:8080
+    volumes:
+      - /home/couderc/Documents/workspace/syam/volumes/keycloakdata/:/opt/jboss/keycloak/standalone/data
+  tweet:
     image: webapp-tweet
     links:
       - mysql:mysql
+      - keycloak:keycloak
     ports:
       - 8081:8080
       - 9990:9990
       - 8787:8787
+    volumes:
+      - /home/couderc/Documents/workspace/syam/webapp-tweet/target:/opt/jboss/wildfly/standalone/deployments
