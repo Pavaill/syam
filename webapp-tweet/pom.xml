@@ -94,6 +94,26 @@
             <version>5.1.39</version>
         </dependency>
 
+
+
+
+
+<!--        <dependency>
+
+            <groupId>org.jboss.ejb3</groupId>
+
+            <artifactId>jboss-ejb3-ext-api</artifactId>
+
+            <scope>provided</scope>
+
+        </dependency>-->
+
+
+
+
+
+
+
         <!-- First declare the APIs we depend on and need for compilation. All 
             of them are provided by JBoss WildFly -->
 
@@ -207,6 +227,13 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-core</artifactId>
+            <version>4.7.0.Final</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -229,7 +256,22 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>${version.wildfly.maven.plugin}</version>
             </plugin>
+            <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.4.1</version>
+                <executions>
+                    <execution>
+                        <id>enforce-quickstart-realm-file-exist</id>
+                        <phase>validate</phase>
+                    </execution>
+                    <execution>
+                        <id>enforce-keycloak-file-exist</id>
+                        <phase>validate</phase>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+
     </build>
 
     <profiles>

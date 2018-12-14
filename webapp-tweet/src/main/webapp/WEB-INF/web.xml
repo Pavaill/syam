@@ -22,7 +22,6 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>secured</web-resource-name>
-            <url-pattern>/webapp-tweet/rest/tweet/secured</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>user</role-name>
@@ -32,7 +31,7 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>admin</web-resource-name>
-            <url-pattern>/tweet/allTweet</url-pattern>
+            <url-pattern>/rest/tweet/alltweet</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
@@ -42,7 +41,6 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>public</web-resource-name>
-            <url-pattern>/public</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>public</role-name>
@@ -51,6 +49,7 @@
 
     <login-config>
         <auth-method>KEYCLOAK</auth-method>
+        <realm-name>twitter</realm-name>
     </login-config>
 
     <security-role>

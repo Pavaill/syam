@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import javax.annotation.security.PermitAll;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -46,6 +47,7 @@ import javax.ws.rs.core.SecurityContext;
 import com.syam.data.TweetRepository;
 import com.syam.model.Tweet;
 import com.syam.service.TweetRegistration;
+import org.jboss.logging.annotations.Message;
 
 /**
  * JAX-RS Example
@@ -53,6 +55,7 @@ import com.syam.service.TweetRegistration;
  * This class produces a RESTful service to read/write the contents of the Tweets table.
  */
 @Path("/tweet")
+@PermitAll
 @RequestScoped
 public class TweetResourceRESTService {
 
@@ -93,10 +96,10 @@ public class TweetResourceRESTService {
 
     /**
      * Recuperation de tous les tweets
-     * chemin : /webapp-tweet/rest/tweet/allTweet
+     * chemin : /webapp-tweet/rest/tweet/alltweet
      */
     @GET
-    @Path("/allTweet")
+    @Path("/alltweet")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Tweet> lookupAllTweet() {
         List<Tweet> tweet = repository.findAllOrderedById();
@@ -105,6 +108,18 @@ public class TweetResourceRESTService {
         }
         return tweet;
     }
+
+    /*@GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("secured")
+    public Message getSecured(@Context SecurityContext sec) {
+        return new Message("secured "+ (((KeycloakPrincipal) sec.getUserPrincipal()).getKeycloakSecurityContext().getToken().getPreferredUsername()));
+    }
+
+    private String getUser (@Context SecurityContext sec){
+        return (((KeycloakPrincipal) sec.getUserPrincipal()).getKeycloakSecurityContext().getToken().getPreferredUsername());
+    }*/
+
 
     /**
      * Creation d'un nouveau tweet
@@ -162,14 +177,6 @@ public class TweetResourceRESTService {
 
         return builder.build();
     }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/admin")
-    public String getSecured(@Context SecurityContext sec) {
-        return new String("secured");
-    }
-
 
     /**
      * <p>

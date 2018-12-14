@@ -5,7 +5,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - /home/maxime/Documents/syam/volumes/database:/var/lib/mysql
+      - /home/twitter/Bureau/syam/volumes/database:/var/lib/mysql
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+
   keycloak:
     image: jboss/keycloak:4.6.0.Final
     environment:
@@ -19,7 +21,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - /home/maxime/Documents/syam/volumes/keycloakdata/:/opt/jboss/keycloak/standalone/data
+      - /home/twitter/Bureau/syam/volumes/keycloakdata/:/opt/jboss/keycloak/standalone/data
   tweet:
     image: webapp-tweet
     links:
@@ -30,4 +32,4 @@ services:
       - 9990:9990
       - 8787:8787
     volumes:
-      - /home/maxime/Documents/syam/webapp-tweet/target:/opt/jboss/wildfly/standalone/deployments
+      - /home/twitter/Bureau/syam/webapp-tweet/target:/opt/jboss/wildfly/standalone/deployments
