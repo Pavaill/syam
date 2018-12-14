@@ -1,0 +1,5 @@
+{
+    "clientId": "webapp-tweet",
+    "enabled": true,
+    "bearerOnly": true
+}
