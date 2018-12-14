@@ -11,8 +11,6 @@ services:
     links:
       - mysql:mysql
     ports:
-      - 8080:8080
+      - 8081:8080
       - 9990:9990
       - 8787:8787
-    volumes:
-      - /Users/utilisateur/Documents/GitHub/syam/webapp-tweet/target:/opt/jboss/wildfly/standalone/deployments
